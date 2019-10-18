@@ -63,6 +63,7 @@
     this.element = null;
     this.autoshow = false;
     this.createElements = true;
+    this.resizeElements = true;
     this.forceGemini = false;
     this.onResize = null;
     this.minThumbSize = 20;
@@ -213,8 +214,10 @@
       return this;
     }
 
-    this._viewElement.style.width = ((this.element.offsetWidth + SCROLLBAR_WIDTH).toString() + 'px');
-    this._viewElement.style.height = ((this.element.offsetHeight + SCROLLBAR_WIDTH).toString() + 'px');
+    if (this.resizeElements === true) {
+        this._viewElement.style.width = ((this.element.offsetWidth + SCROLLBAR_WIDTH).toString() + 'px');
+        this._viewElement.style.height = ((this.element.offsetHeight + SCROLLBAR_WIDTH).toString() + 'px');
+    }
 
     this._naturalThumbSizeX = this._scrollbarHorizontalElement.clientWidth / this._viewElement.scrollWidth * this._scrollbarHorizontalElement.clientWidth;
     this._naturalThumbSizeY = this._scrollbarVerticalElement.clientHeight / this._viewElement.scrollHeight * this._scrollbarVerticalElement.clientHeight;
@@ -276,8 +279,10 @@
       }
       this.element.removeChild(this._viewElement);
     } else {
-      this._viewElement.style.width = '';
-      this._viewElement.style.height = '';
+      if (this.resizeElements === true) {
+        this._viewElement.style.width = '';
+        this._viewElement.style.height = '';
+      }
       this._scrollbarVerticalElement.style.display = 'none';
       this._scrollbarHorizontalElement.style.display = 'none';
     }
